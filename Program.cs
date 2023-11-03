@@ -116,6 +116,18 @@
                 {
                     WordTranslation(argument);
                 }
+                else if (command == "help")
+                {
+                    Console.WriteLine("You can choose between these commands:");
+                    Console.WriteLine(" Load                        # Loads a database into the program.");
+                    Console.WriteLine(" List                        # Prints a list of the Dictionary.");
+                    Console.WriteLine(" New                         # Add a new item to the Dictionary with 2 steps.");
+                    Console.WriteLine(" New Swedish / English       # Adds a new item to the Dictionary instantly.");
+                    Console.WriteLine(" Translate                   # Prints a translation for a word of your liking.");
+                    Console.WriteLine(" Delete                      # Deletes an item from the Dictionary with 2 steps");
+                    Console.WriteLine(" Delete Swedish / English    # Deletes the item from the Dictionary instantly.");
+                    Console.WriteLine(" Quit                        # Quits the program.");
+                }
                 //NYI: Skapa en hjälp funktion med utskrift över olika kommandon
                 else
                 {
@@ -149,6 +161,6 @@
                         Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                 }
             }
-        }
+        }//Metod för Translate kommandot.
     }
 }
