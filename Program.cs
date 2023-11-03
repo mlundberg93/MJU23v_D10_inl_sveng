@@ -32,34 +32,7 @@
                 }
                 else if (command.ToLower() == "load")
                 {
-                    if(argument.Length == 2)    //Unhandled exception. System.IO.FileNotFoundException: Could not find file, felhantera fel filläsning.
-                    {
-                        using (StreamReader sr = new StreamReader(argument[1]))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
+                    FileLoader(defaultFile, argument);
                 }
                 else if (command.ToLower() == "list")
                 {
@@ -101,6 +74,38 @@
                 }
             }
             while (true);
+        }
+
+        private static void FileLoader(string defaultFile, string[] argument)
+        {
+            if (argument.Length == 2)    //Unhandled exception. System.IO.FileNotFoundException: Could not find file, felhantera fel filläsning.
+            {
+                using (StreamReader sr = new StreamReader(argument[1]))
+                {
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
+            else if (argument.Length == 1)
+            {
+                using (StreamReader sr = new StreamReader(defaultFile))
+                {
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
         }
 
         private static void DeleteItem(string[] argument)
