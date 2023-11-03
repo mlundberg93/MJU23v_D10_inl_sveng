@@ -76,10 +76,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();  //FIXME: ändra till ett mer bekripligt variabel namn
+                        string swedishWord = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();  //FIXME: ändra till ett mer bekripligt variabel namn
-                        dictionary.Add(new SweEngGloss(s, e)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
+                        string englishWord = Console.ReadLine(); 
+                        dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
                     }
                 }
                 else if (command == "delete")
@@ -98,15 +98,15 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();  //FIXME: ändra till ett mer bekripligt variabel namn
+                        string swedishWord = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();  //FIXME: ändra till ett mer bekripligt variabel namn
+                        string englishWord = Console.ReadLine();  
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++) //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
                                                                    //Om man kör Delete utan ladda listan.
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
                                 index = i;
                         }
                         dictionary.RemoveAt(index);
@@ -127,12 +127,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();  //FIXME: ändra till ett mer bekripligt variabel namn
+                        string userTranslate = Console.ReadLine();
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == userTranslate)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == userTranslate)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
