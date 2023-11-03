@@ -20,16 +20,17 @@
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
+            PrintHelp();
             do
             {
                 Console.Write("> ");
                 string[] argument = Console.ReadLine().Split();
                 string command = argument[0];
-                if (command == "quit") //NYI: Programmet avslutas inte när man kör kommando Quit.
+                if (command.ToLower() == "quit") //NYI: Programmet avslutas inte när man kör kommando Quit.
                 {
                     Console.WriteLine("Goodbye!");
                 }
-                else if (command == "load")
+                else if (command.ToLower() == "load")
                 {
                     if(argument.Length == 2)    //Unhandled exception. System.IO.FileNotFoundException: Could not find file, felhantera fel filläsning.
                     {
@@ -60,14 +61,14 @@
                         }
                     }
                 }
-                else if (command == "list")
+                else if (command.ToLower() == "list")
                 {
                     foreach(SweEngGloss gloss in dictionary)  //FIXME: Unhandled exception. System.NullReferenceException, när jag kör list före load i console.
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
                 }
-                else if (command == "new")
+                else if (command.ToLower() == "new")
                 {
                     if (argument.Length == 3)
                     {
@@ -82,7 +83,7 @@
                         dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
                     }
                 }
-                else if (command == "delete")
+                else if (command.ToLower() == "delete")
                 {
                     if (argument.Length == 3)
                     {
@@ -112,23 +113,14 @@
                         dictionary.RemoveAt(index);
                     }
                 }
-                else if (command == "translate")
+                else if (command.ToLower() == "translate")
                 {
                     WordTranslation(argument);
                 }
-                else if (command == "help")
+                else if (command.ToLower() == "help")
                 {
-                    Console.WriteLine("You can choose between these commands:");
-                    Console.WriteLine(" Load                        # Loads a database into the program.");
-                    Console.WriteLine(" List                        # Prints a list of the Dictionary.");
-                    Console.WriteLine(" New                         # Add a new item to the Dictionary with 2 steps.");
-                    Console.WriteLine(" New Swedish / English       # Adds a new item to the Dictionary instantly.");
-                    Console.WriteLine(" Translate                   # Prints a translation for a word of your liking.");
-                    Console.WriteLine(" Delete                      # Deletes an item from the Dictionary with 2 steps");
-                    Console.WriteLine(" Delete Swedish / English    # Deletes the item from the Dictionary instantly.");
-                    Console.WriteLine(" Quit                        # Quits the program.");
+                    PrintHelp();
                 }
-                //NYI: Skapa en hjälp funktion med utskrift över olika kommandon
                 else
                 {
                     Console.WriteLine($"Unknown command: '{command}'");
@@ -136,6 +128,19 @@
             }
             while (true);
         }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("You can choose between these commands:");
+            Console.WriteLine(" Load                        # Loads a database into the program.");
+            Console.WriteLine(" List                        # Prints a list of the Dictionary.");
+            Console.WriteLine(" New                         # Add a new item to the Dictionary with 2 steps.");
+            Console.WriteLine(" New Swedish / English       # Adds a new item to the Dictionary instantly.");
+            Console.WriteLine(" Translate                   # Prints a translation for a word of your liking.");
+            Console.WriteLine(" Delete                      # Deletes an item from the Dictionary with 2 steps");
+            Console.WriteLine(" Delete Swedish / English    # Deletes the item from the Dictionary instantly.");
+            Console.WriteLine(" Quit                        # Quits the program.");
+        }//Metod för skriv ut hjälp kommandot.
 
         private static void WordTranslation(string[] argument)
         {
