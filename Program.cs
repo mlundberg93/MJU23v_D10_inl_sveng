@@ -36,10 +36,7 @@
                 }
                 else if (command.ToLower() == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary)  //FIXME: Unhandled exception. System.NullReferenceException, när jag kör list före load i console.
-                    {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
-                    }
+                    PrintList();
                 }
                 else if (command.ToLower() == "new")
                 {
@@ -65,6 +62,14 @@
             while (true);
         }
 
+        private static void PrintList()
+        {
+            foreach (SweEngGloss gloss in dictionary)  //FIXME: Unhandled exception. System.NullReferenceException, när jag kör list före load i console.
+            {
+                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+            }
+        }
+
         private static void AddNewItem(string[] argument)
         {
             if (argument.Length == 3)
@@ -79,7 +84,7 @@
                 string englishWord = Console.ReadLine();
                 dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
             }
-        }
+        }//Metod för att lägga till ett nytt ord i listan.
 
         private static void FileLoader(string defaultFile, string[] argument)
         {
