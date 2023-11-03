@@ -85,33 +85,7 @@
                 }
                 else if (command.ToLower() == "delete")
                 {
-                    if (argument.Length == 3)
-                    {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index); //FIXME: Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
-                                                    //Ifall man inte stavar ordet rätt vid delete.
-                    }
-                    else if (argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWord = Console.ReadLine();  
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
-                                                                   //Om man kör Delete utan ladda listan.
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
-                    }
+                    DeleteItem(argument);
                 }
                 else if (command.ToLower() == "translate")
                 {
@@ -129,6 +103,37 @@
             while (true);
         }
 
+        private static void DeleteItem(string[] argument)
+        {
+            if (argument.Length == 3)
+            {
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
+                        index = i;
+                }
+                dictionary.RemoveAt(index); //FIXME: Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
+                                            //Ifall man inte stavar ordet rätt vid delete.
+            }
+            else if (argument.Length == 1)
+            {
+                Console.WriteLine("Write word in Swedish: ");
+                string swedishWord = Console.ReadLine();
+                Console.Write("Write word in English: ");
+                string englishWord = Console.ReadLine();
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++) //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
+                                                           //Om man kör Delete utan ladda listan.
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
+                        index = i;
+                }
+                dictionary.RemoveAt(index);
+            }
+        }//Metod för att radera en sak ifrån listan.
         private static void PrintHelp()
         {
             Console.WriteLine("You can choose between these commands:");
