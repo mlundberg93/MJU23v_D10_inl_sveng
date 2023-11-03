@@ -43,18 +43,7 @@
                 }
                 else if (command.ToLower() == "new")
                 {
-                    if (argument.Length == 3)
-                    {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWord = Console.ReadLine(); 
-                        dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
-                    }
+                    AddNewItem(argument);
                 }
                 else if (command.ToLower() == "delete")
                 {
@@ -74,6 +63,22 @@
                 }
             }
             while (true);
+        }
+
+        private static void AddNewItem(string[] argument)
+        {
+            if (argument.Length == 3)
+            {
+                dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+            }
+            else if (argument.Length == 1)
+            {
+                Console.WriteLine("Write word in Swedish: ");
+                string swedishWord = Console.ReadLine();
+                Console.Write("Write word in English: ");
+                string englishWord = Console.ReadLine();
+                dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
+            }
         }
 
         private static void FileLoader(string defaultFile, string[] argument)
@@ -106,7 +111,7 @@
                     }
                 }
             }
-        }
+        }//Metod för att läsa in fil, antingen default eller en egen fil.
 
         private static void DeleteItem(string[] argument)
         {
