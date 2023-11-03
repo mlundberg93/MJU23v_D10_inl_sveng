@@ -61,6 +61,11 @@
             }
             while (true);
         }
+        static string Input(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine();
+        }//Metod för att skriva ut en prompt och returnera en Console.ReadLine.
 
         private static void PrintList()
         {
@@ -68,7 +73,7 @@
             {
                 Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
             }
-        }
+        }//Metod för skriva ut listan.
 
         private static void AddNewItem(string[] argument)
         {
@@ -78,10 +83,8 @@
             }
             else if (argument.Length == 1)
             {
-                Console.WriteLine("Write word in Swedish: ");
-                string swedishWord = Console.ReadLine();
-                Console.Write("Write word in English: ");
-                string englishWord = Console.ReadLine();
+                string swedishWord = Input("Write word in Swedish: ");
+                string englishWord = Input("Write word in English: ");
                 dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
             }
         }//Metod för att lägga till ett nytt ord i listan.
@@ -134,10 +137,8 @@
             }
             else if (argument.Length == 1)
             {
-                Console.WriteLine("Write word in Swedish: ");
-                string swedishWord = Console.ReadLine();
-                Console.Write("Write word in English: ");
-                string englishWord = Console.ReadLine();
+                string swedishWord = Input("Write word in Swedish: ");
+                string englishWord = Input("Write word in English: ");
                 int index = -1;
                 for (int i = 0; i < dictionary.Count; i++) //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
                                                            //Om man kör Delete utan ladda listan.
@@ -176,8 +177,7 @@
             }
             else if (argument.Length == 1)
             {
-                Console.WriteLine("Write word to be translated: ");
-                string userTranslate = Console.ReadLine();
+                string userTranslate = Input("Write the word to be translated: ");
                 foreach (SweEngGloss gloss in dictionary)
                 {
                     if (gloss.word_swe == userTranslate)
