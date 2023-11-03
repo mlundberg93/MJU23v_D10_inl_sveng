@@ -1,4 +1,6 @@
-﻿namespace MJU23v_D10_inl_sveng
+﻿using System.Data;
+
+namespace MJU23v_D10_inl_sveng
 {
     internal class Program
     {
@@ -18,13 +20,15 @@
         }
         static void Main(string[] args)
         {
+            string[] argument;
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
             PrintHelp();
             do
             {
-                Console.Write("> ");
-                string[] argument = Console.ReadLine().Split();
+                //Console.Write("> ");
+
+                argument = Input("> ").Split();
                 string command = argument[0];
                 if (command.ToLower() == "quit") //NYI: Programmet avslutas inte när man kör kommando Quit.
                 {
@@ -59,7 +63,7 @@
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
             }
-            while (true);
+            while (argument[0].ToLower() != "quit");
         }
         static string Input(string prompt)
         {
