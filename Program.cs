@@ -85,7 +85,7 @@ namespace MJU23v_D10_inl_sveng
             }
             if (printCounter == 0)
             {
-                Console.WriteLine("The list is empty, load a file before trying to print.");
+                Console.WriteLine("The dictionary is empty, load a file before trying to print.");
             }
         }//Metod för skriva ut listan.
 
@@ -99,7 +99,7 @@ namespace MJU23v_D10_inl_sveng
             {
                 string swedishWord = Input("Write word in Swedish: ");
                 string englishWord = Input("Write word in English: ");
-                dictionary.Add(new SweEngGloss(swedishWord, englishWord)); //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
+                dictionary.Add(new SweEngGloss(swedishWord, englishWord));
             }
         }//Metod för att lägga till ett nytt ord i listan.
 
@@ -151,24 +151,56 @@ namespace MJU23v_D10_inl_sveng
                 {
                     SweEngGloss gloss = dictionary[i];
                     if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
+                    {
                         index = i;
+                        break;
+                    }
                 }
-                dictionary.RemoveAt(index); //FIXME: Unhandled exception. System.ArgumentOutOfRangeException: Index was out of range.
-                                            //Ifall man inte stavar ordet rätt vid delete.
+                if (index != -1)
+                {
+                    dictionary.RemoveAt(index);
+                    Console.WriteLine("The entry has been removed!");
+
+                }
+                else
+                {
+                    Console.WriteLine("Could not find a matching entry!");
+                }
             }
             else if (argument.Length == 1)
             {
-                string swedishWord = Input("Write word in Swedish: ");
-                string englishWord = Input("Write word in English: ");
-                int index = -1;
-                for (int i = 0; i < dictionary.Count; i++) //FIXME: Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object.
-                                                           //Om man kör Delete utan ladda listan.
+                if (dictionary.Count > 0)
                 {
-                    SweEngGloss gloss = dictionary[i];
-                    if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
-                        index = i;
+                    string swedishWord = Input("Write word in Swedish: ");
+                    string englishWord = Input("Write word in English: ");
+                    int index = -1;
+                    for (int i = 0; i < dictionary.Count; i++)
+                    {
+                        SweEngGloss gloss = dictionary[i];
+                        if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index != -1)
+                    {
+                        dictionary.RemoveAt(index);
+                        Console.WriteLine("The entry has been removed!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Couldn't find your entry in the dictionary.");
+                    }
                 }
-                dictionary.RemoveAt(index);
+                else
+                {
+                    Console.WriteLine("The dictionary is already empty.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Input is invalid. Use Delete Swedish word English word");
             }
         }//Metod för att radera en sak ifrån listan.
         private static void PrintHelp()
