@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Linq.Expressions;
 
 namespace MJU23v_D10_inl_sveng
 {
@@ -26,11 +27,9 @@ namespace MJU23v_D10_inl_sveng
             PrintHelp();
             do
             {
-                //Console.Write("> ");
-
                 argument = Input("> ").Split();
                 string command = argument[0];
-                if (command.ToLower() == "quit") //NYI: Programmet avslutas inte när man kör kommando Quit.
+                if (command.ToLower() == "quit") 
                 {
                     Console.WriteLine("Goodbye!");
                 }
@@ -95,33 +94,39 @@ namespace MJU23v_D10_inl_sveng
 
         private static void FileLoader(string defaultFile, string[] argument)
         {
-            if (argument.Length == 2)    //Unhandled exception. System.IO.FileNotFoundException: Could not find file, felhantera fel filläsning.
-            {
-                using (StreamReader sr = new StreamReader(argument[1]))
+            try {
+                if (argument.Length == 2) 
                 {
-                    dictionary = new List<SweEngGloss>(); // Empty it!
-                    string line = sr.ReadLine();
-                    while (line != null)
+                    using (StreamReader sr = new StreamReader(argument[1]))
                     {
-                        SweEngGloss gloss = new SweEngGloss(line);
-                        dictionary.Add(gloss);
-                        line = sr.ReadLine();
+                        dictionary = new List<SweEngGloss>(); // Empty it!
+                        string line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            SweEngGloss gloss = new SweEngGloss(line);
+                            dictionary.Add(gloss);
+                            line = sr.ReadLine();
+                        }
+                    }
+                }
+                else if (argument.Length == 1)
+                {
+                    using (StreamReader sr = new StreamReader(defaultFile))
+                    {
+                        dictionary = new List<SweEngGloss>(); // Empty it!
+                        string line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            SweEngGloss gloss = new SweEngGloss(line);
+                            dictionary.Add(gloss);
+                            line = sr.ReadLine();
+                        }
                     }
                 }
             }
-            else if (argument.Length == 1)
+            catch (System.IO.FileNotFoundException exc)
             {
-                using (StreamReader sr = new StreamReader(defaultFile))
-                {
-                    dictionary = new List<SweEngGloss>(); // Empty it!
-                    string line = sr.ReadLine();
-                    while (line != null)
-                    {
-                        SweEngGloss gloss = new SweEngGloss(line);
-                        dictionary.Add(gloss);
-                        line = sr.ReadLine();
-                    }
-                }
+                Console.WriteLine($"Could not find file {argument[1]}");
             }
         }//Metod för att läsa in fil, antingen default eller en egen fil.
 
