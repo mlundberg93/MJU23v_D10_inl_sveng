@@ -5,7 +5,7 @@ namespace MJU23v_D10_inl_sveng
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary;
+        static List<SweEngGloss> dictionary = new List<SweEngGloss>();
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -18,6 +18,10 @@ namespace MJU23v_D10_inl_sveng
                 string[] words = line.Split('|');
                 this.word_swe = words[0]; this.word_eng = words[1];
             }
+            public void WordPrint()
+            {
+                Console.WriteLine($"{word_swe,-10} - {word_eng,-10}");
+            }
         }
         static void Main(string[] args)
         {
@@ -29,7 +33,7 @@ namespace MJU23v_D10_inl_sveng
             {
                 argument = Input("> ").Split();
                 string command = argument[0];
-                if (command.ToLower() == "quit") 
+                if (command.ToLower() == "quit")
                 {
                     Console.WriteLine("Goodbye!");
                 }
@@ -72,9 +76,16 @@ namespace MJU23v_D10_inl_sveng
 
         private static void PrintList()
         {
-            foreach (SweEngGloss gloss in dictionary)  //FIXME: Unhandled exception. System.NullReferenceException, när jag kör list före load i console.
+            int printCounter = 0;
+            foreach (SweEngGloss gloss in dictionary)
             {
-                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                printCounter++;
+                if (gloss != null)
+                    gloss.WordPrint();
+            }
+            if (printCounter == 0)
+            {
+                Console.WriteLine("The list is empty, load a file before trying to print.");
             }
         }//Metod för skriva ut listan.
 
@@ -94,8 +105,9 @@ namespace MJU23v_D10_inl_sveng
 
         private static void FileLoader(string defaultFile, string[] argument)
         {
-            try {
-                if (argument.Length == 2) 
+            try
+            {
+                if (argument.Length == 2)
                 {
                     using (StreamReader sr = new StreamReader(argument[1]))
                     {
